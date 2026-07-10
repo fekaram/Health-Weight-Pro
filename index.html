@@ -10,6 +10,19 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png" />
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
     <title>Health Weight Pro</title>
+    <script>
+      // Companion to public/404.html: if GitHub Pages redirected here because a deep
+      // link/hard refresh wasn't a real file, restore the originally requested URL before
+      // the client-side router starts, so navigation behaves exactly like a root deployment.
+      (function () {
+        var redirectPath = sessionStorage.getItem('hwp:redirect-path');
+
+        if (redirectPath) {
+          sessionStorage.removeItem('hwp:redirect-path');
+          window.history.replaceState(null, '', redirectPath);
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="app"></div>

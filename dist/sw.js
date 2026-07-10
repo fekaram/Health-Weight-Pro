@@ -1,14 +1,17 @@
-const CACHE_NAME = 'hwp-platform-3-shell-v4';
+const CACHE_NAME = 'hwp-platform-3-shell-v5';
+// Relative to this script's own location (e.g. '/sw.js' at the domain root locally, or
+// '/Health-Weight-Pro/sw.js' on GitHub Pages), so the app shell caches correctly under any
+// deployment base path without hardcoding it here.
 const APP_SHELL = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/icons/favicon-16.png',
-  '/icons/favicon-32.png',
-  '/icons/apple-touch-icon.png',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png',
-  '/icons/logo.png',
+  './',
+  './index.html',
+  './manifest.json',
+  './icons/favicon-16.png',
+  './icons/favicon-32.png',
+  './icons/apple-touch-icon.png',
+  './icons/icon-192.png',
+  './icons/icon-512.png',
+  './icons/logo.png',
 ];
 
 self.addEventListener('install', (event) => {
@@ -57,7 +60,7 @@ self.addEventListener('fetch', (event) => {
 
           return networkResponse;
         })
-        .catch(() => (event.request.mode === 'navigate' ? caches.match('/index.html') : undefined));
+        .catch(() => (event.request.mode === 'navigate' ? caches.match('./index.html') : undefined));
     }),
   );
 });

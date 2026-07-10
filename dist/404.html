@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Health Weight Pro</title>
+    <script>
+      // GitHub Pages has no server-side SPA fallback: a hard refresh or deep link (e.g.
+      // /Health-Weight-Pro/meal-journal) that isn't a real file lands here. Stash the intended
+      // path and redirect to the app shell, which restores it via history.replaceState before
+      // the client-side router starts (see index.html).
+      sessionStorage.setItem(
+        'hwp:redirect-path',
+        window.location.pathname + window.location.search + window.location.hash,
+      );
+      window.location.replace('/Health-Weight-Pro/');
+    </script>
+  </head>
+  <body></body>
+</html>

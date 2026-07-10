@@ -5,13 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#185d75" />
     <meta name="description" content="Health Weight Pro offline-first health and weight tracking." />
-    <link rel="manifest" href="/manifest.json" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png" />
-    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/Health-Weight-Pro/manifest.json" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/Health-Weight-Pro/icons/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/Health-Weight-Pro/icons/favicon-16.png" />
+    <link rel="apple-touch-icon" href="/Health-Weight-Pro/icons/apple-touch-icon.png" />
     <title>Health Weight Pro</title>
-    <script type="module" crossorigin src="/assets/index-DnP8im9G.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-WNDrYHLX.css">
+    <script>
+      // Companion to public/404.html: if GitHub Pages redirected here because a deep
+      // link/hard refresh wasn't a real file, restore the originally requested URL before
+      // the client-side router starts, so navigation behaves exactly like a root deployment.
+      (function () {
+        var redirectPath = sessionStorage.getItem('hwp:redirect-path');
+
+        if (redirectPath) {
+          sessionStorage.removeItem('hwp:redirect-path');
+          window.history.replaceState(null, '', redirectPath);
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="/Health-Weight-Pro/assets/index-D5zeE0-l.js"></script>
+    <link rel="stylesheet" crossorigin href="/Health-Weight-Pro/assets/index-WNDrYHLX.css">
   </head>
   <body>
     <div id="app"></div>

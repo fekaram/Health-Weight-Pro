@@ -130,6 +130,7 @@ export class AppViewModel {
       ...route,
       label: route.labelKey ? i18n.t(route.labelKey) : route.label,
       section: route.sectionKey ? i18n.t(route.sectionKey) : route.section,
+      href: this.router.toHref(route.path),
     };
   }
 

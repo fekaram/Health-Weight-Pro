@@ -185,9 +185,11 @@ async function closeTopmostDialog({ root, viewModel }) {
 }
 
 function renderBrand(state) {
+  const homeHref = state.routes.find((route) => route.path === '/')?.href ?? import.meta.env.BASE_URL;
+
   return `
-    <a class="app-shell__brand" href="/" data-route="/">
-      <img class="app-shell__logo" src="/icons/logo.png" alt="" aria-hidden="true" />
+    <a class="app-shell__brand" href="${homeHref}" data-route="/">
+      <img class="app-shell__logo" src="${import.meta.env.BASE_URL}icons/logo.png" alt="" aria-hidden="true" />
       <span class="app-shell__brand-copy">
         <span class="app-shell__brand-text">${state.appName}</span>
         <span class="app-shell__brand-version">${state.i18n.t('app.version', { version: state.appVersion })}</span>
@@ -229,7 +231,7 @@ function renderRouteLink(route, currentRoute) {
   return `
     <a
       class="app-shell__link${isActive ? ' app-shell__link--active' : ''}"
-      href="${route.path}"
+      href="${route.href}"
       data-route="${route.path}"
       ${isActive ? 'aria-current="page"' : ''}
     >
@@ -429,7 +431,7 @@ function renderSheetOptions(routes, i18n) {
       </li>
       ${
         medicationRoute
-          ? `<li><a class="bottom-sheet__option" href="${medicationRoute.path}" data-route="${medicationRoute.path}"><span aria-hidden="true">💉</span><span>${i18n.t('habit.medication')}</span></a></li>`
+          ? `<li><a class="bottom-sheet__option" href="${medicationRoute.href}" data-route="${medicationRoute.path}"><span aria-hidden="true">💉</span><span>${i18n.t('habit.medication')}</span></a></li>`
           : ''
       }
     </ul>
@@ -461,17 +463,17 @@ function renderMealRegisterDialog(routes, i18n) {
       </li>
       ${
         favoritesRoute
-          ? `<li><a class="bottom-sheet__option" href="${favoritesRoute.path}" data-route="${favoritesRoute.path}"><span aria-hidden="true">⭐</span><span>${i18n.t('fab.favorites')}</span></a></li>`
+          ? `<li><a class="bottom-sheet__option" href="${favoritesRoute.href}" data-route="${favoritesRoute.path}"><span aria-hidden="true">⭐</span><span>${i18n.t('fab.favorites')}</span></a></li>`
           : ''
       }
       ${
         mealPlansRoute
-          ? `<li><a class="bottom-sheet__option" href="${mealPlansRoute.path}" data-route="${mealPlansRoute.path}"><span aria-hidden="true">🍽️</span><span>${i18n.t('fab.mealPlans')}</span></a></li>`
+          ? `<li><a class="bottom-sheet__option" href="${mealPlansRoute.href}" data-route="${mealPlansRoute.path}"><span aria-hidden="true">🍽️</span><span>${i18n.t('fab.mealPlans')}</span></a></li>`
           : ''
       }
       ${
         foodLibraryRoute
-          ? `<li><a class="bottom-sheet__option" href="${foodLibraryRoute.path}" data-route="${foodLibraryRoute.path}"><span aria-hidden="true">📚</span><span>${i18n.t('fab.foodLibrary')}</span></a></li>`
+          ? `<li><a class="bottom-sheet__option" href="${foodLibraryRoute.href}" data-route="${foodLibraryRoute.path}"><span aria-hidden="true">📚</span><span>${i18n.t('fab.foodLibrary')}</span></a></li>`
           : ''
       }
     </ul>
