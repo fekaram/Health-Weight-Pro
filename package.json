@@ -1,0 +1,26 @@
+{
+  "name": "hwp-platform-3",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Offline-first MVP foundation for HWP Platform 3.0.",
+  "type": "module",
+  "engines": {
+    "node": ">=20.19.0 <21 || >=22.12.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.30.1",
+    "eslint": "^9.30.1",
+    "globals": "^15.15.0",
+    "prettier": "^3.6.2",
+    "vite": "^8.1.3"
+  }
+}
