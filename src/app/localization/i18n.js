@@ -1,3 +1,5 @@
+import { parseLocalDate } from '../../modules/shared/utils/records.js';
+
 export const APP_DISPLAY_NAME = 'Health Weight Pro';
 export const APP_VERSION = '3.0';
 
@@ -85,6 +87,7 @@ const translations = Object.freeze({
     'common.cancel': 'Cancel',
     'common.confirm': 'Confirm',
     'common.date': 'Date',
+    'common.today': 'Today',
     'common.delete': 'Delete',
     'common.edit': 'Edit',
     'common.noNotes': 'No notes',
@@ -413,6 +416,7 @@ const translations = Object.freeze({
     'settings.applicationDay': 'Application Day',
     'settings.medicationNotes': 'Optional Notes',
     'settings.dashboardPreferences': 'Dashboard Preferences',
+    'settings.visibleCards': 'Visible Cards',
     'settings.visibleMealSlots': 'Visible Meal Slots',
     'settings.visibleMealSlotsHint':
       'Choose which optional meal slots appear throughout the app. Breakfast, lunch, and dinner are always visible.',
@@ -517,6 +521,7 @@ const translations = Object.freeze({
     'common.cancel': 'Cancelar',
     'common.confirm': 'Confirmar',
     'common.date': 'Data',
+    'common.today': 'Hoje',
     'common.delete': 'Excluir',
     'common.edit': 'Editar',
     'common.noNotes': 'Sem notas',
@@ -846,6 +851,7 @@ const translations = Object.freeze({
     'settings.applicationDay': 'Dia de Aplicação',
     'settings.medicationNotes': 'Notas Opcionais',
     'settings.dashboardPreferences': 'Preferencias do Painel',
+    'settings.visibleCards': 'Cartões Visíveis',
     'settings.visibleMealSlots': 'Horários de Refeição Visíveis',
     'settings.visibleMealSlotsHint':
       'Escolha quais horários de refeição opcionais aparecem em todo o aplicativo. Café da manhã, almoço e jantar estão sempre visíveis.',
@@ -893,8 +899,10 @@ const translations = Object.freeze({
   },
 });
 
+// Health Weight Pro targets Brazilian users primarily: unset/unknown language values
+// default to Portuguese (Brazil); English remains fully supported when explicitly chosen.
 export function normalizeLanguage(language) {
-  return language === 'pt-BR' ? 'pt-BR' : 'en';
+  return language === 'en' ? 'en' : 'pt-BR';
 }
 
 export function normalizeTheme(theme) {
@@ -917,6 +925,9 @@ export function createI18nContext(settings = {}) {
     },
     formatDate(value) {
       return formatDateForLanguage(value, language);
+    },
+    formatLongDate(value) {
+      return formatLongDateForLanguage(value, language);
     },
     formatNumber(value, options = {}) {
       return formatNumberForLanguage(value, language, options);
@@ -946,6 +957,25 @@ export function formatDateForLanguage(value, language) {
   }
 
   return normalizeLanguage(language) === 'pt-BR' ? `${day}/${month}/${year}` : `${month}/${day}/${year}`;
+}
+
+export function formatLongDateForLanguage(value, language) {
+  if (!value) {
+    return '';
+  }
+
+  const date = parseLocalDate(value);
+
+  if (Number.isNaN(date.getTime())) {
+    return String(value);
+  }
+
+  return new Intl.DateTimeFormat(normalizeLanguage(language), {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(date);
 }
 
 export function formatNumberForLanguage(value, language, options = {}) {

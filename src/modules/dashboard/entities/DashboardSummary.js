@@ -1,5 +1,7 @@
+import { todayDate } from '../../shared/utils/records.js';
+
 export function createDashboardSummary({ meals, weights, bodyMeasurements, medicationApplications, dailyHabits }) {
-  const today = new Date().toISOString().slice(0, 10);
+  const today = todayDate();
   const todaysMeals = meals.filter((meal) => meal.mealDate === today);
 
   return {

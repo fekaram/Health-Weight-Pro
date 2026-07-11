@@ -47,6 +47,7 @@ export function renderFavoritesScreen(state) {
       }
 
       ${state.activeDialog === 'wizard' && state.draft ? renderWizardDialog(state, settings, i18n) : ''}
+      ${state.activeDialog === 'quick-save' && state.draft ? renderQuickSaveDialog(state, settings, i18n) : ''}
       ${
         state.activeDialog === 'delete-confirm'
           ? renderDeleteConfirmDialog(favorites.find((favorite) => favorite.id === state.selectedFavoriteId), i18n)
@@ -182,6 +183,39 @@ function renderWizardDialog(state, settings, i18n) {
             ? renderItemsStep(state, i18n)
             : renderPreviewStep(state, i18n)
       }
+    </div>
+  `;
+}
+
+// Simplified path from a Nutri IA+ import: the meal already has its nutrition, so the user
+// only ever sees Name + Category here — never the multi-step wizard (see WP 3.7, PART 5).
+// The full wizard above remains available whenever the user explicitly creates one manually.
+function renderQuickSaveDialog(state, settings, i18n) {
+  const { draft, errors } = state;
+  const title = i18n.t('favorites.saveAsFavorite');
+
+  return `
+    <button type="button" class="bottom-sheet-overlay" data-module="favorites" data-action="closeDialog" aria-label="${i18n.t('common.close')}"></button>
+    <div class="bottom-sheet" role="dialog" aria-modal="true" aria-label="${title}">
+      <div class="bottom-sheet__header">
+        <h2>${title}</h2>
+        <button type="button" class="bottom-sheet__close" data-module="favorites" data-action="closeDialog" aria-label="${i18n.t('common.close')}">×</button>
+      </div>
+      <form class="module-form" data-module="favorites" data-action="saveQuickFavorite">
+        <label class="module-form__wide">
+          <span>${i18n.t('favorites.mealName')}</span>
+          <input name="name" value="${valueOrEmpty(draft.name)}" placeholder="${i18n.t('favorites.namePlaceholder')}" />
+          ${renderError(errors, 'name', i18n)}
+        </label>
+        <label>
+          <span>${i18n.t('favorites.category')}</span>
+          <select name="category">${renderCategoryOptions(draft.category, settings, i18n)}</select>
+        </label>
+        <div class="form-actions">
+          <button type="submit">${i18n.t('common.save')}</button>
+          <button type="button" data-module="favorites" data-action="closeDialog">${i18n.t('common.cancel')}</button>
+        </div>
+      </form>
     </div>
   `;
 }

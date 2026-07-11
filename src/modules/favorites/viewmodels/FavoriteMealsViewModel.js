@@ -158,6 +158,11 @@ export class FavoriteMealsViewModel {
       return;
     }
 
+    if (action === 'saveQuickFavorite') {
+      await this.#saveQuickFavorite(payload);
+      return;
+    }
+
     if (action === 'setSortOption') {
       await this.#setSortOption(payload.sortOption);
     }
@@ -273,6 +278,22 @@ export class FavoriteMealsViewModel {
     this.draft = { ...this.draft, items };
   }
 
+  // Simplified two-field path for meals that already have their nutrition (imported via
+  // Nutri IA+): only Name + Category are asked for, then reuses the same save/validate/
+  // publish logic as the full wizard — no rebuilding the meal, no items/preview steps.
+  async #saveQuickFavorite(payload) {
+    const name = String(payload.name ?? '').trim();
+
+    if (!name) {
+      this.errors = { name: 'validation.favoriteMealNameRequired' };
+      return;
+    }
+
+    this.draft = { ...this.draft, name, category: payload.category ?? this.draft.category };
+    this.errors = {};
+    await this.#saveFavorite();
+  }
+
   async #saveFavorite() {
     const favoriteMeal = createFavoriteMeal({ ...this.draft, id: this.draft?.id ?? null }, null);
     const errors = validateFavoriteMeal(favoriteMeal);
@@ -354,7 +375,7 @@ export class FavoriteMealsViewModel {
     };
     this.wizardMode = 'create';
     this.wizardStep = 'details';
-    this.activeDialog = 'wizard';
+    this.activeDialog = 'quick-save';
     this.pickingFoodId = null;
     this.editingItemIndex = null;
     this.errors = {};

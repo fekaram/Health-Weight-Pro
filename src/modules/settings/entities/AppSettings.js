@@ -18,7 +18,7 @@ const unitsByLanguage = Object.freeze({
 export const defaultSettings = Object.freeze({
   id: APP_SETTINGS_ID,
   displayName: '',
-  language: 'en',
+  language: 'pt-BR',
   theme: 'system',
   sex: '',
   birthDate: '',

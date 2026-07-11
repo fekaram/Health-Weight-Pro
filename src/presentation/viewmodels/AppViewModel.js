@@ -102,6 +102,12 @@ export class AppViewModel {
     }
 
     await moduleViewModel.handleAction(action, payload);
+
+    // Pure UI state (no business data changed) — skip the cross-module refresh cascade below.
+    if (moduleKey === 'settings' && action === 'toggleSection') {
+      return;
+    }
+
     await this.#refreshAfterAction(moduleKey, action);
     this.#checkGoalAchievements();
     applyDocumentPreferences(this.getSettings());

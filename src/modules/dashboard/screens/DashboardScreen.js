@@ -1,4 +1,5 @@
 import { escapeHtml } from '../../shared/utils/html.js';
+import { todayDate } from '../../shared/utils/records.js';
 
 const cardDefinitions = [
   { key: 'calories', labelKey: 'dashboard.calories', unit: 'kcal', icon: 'flame' },
@@ -145,6 +146,7 @@ function renderDailySummary(metrics, settings, i18n) {
       <div class="daily-summary__copy">
         <p class="module-screen__eyebrow">${i18n.t('dashboard.smartSummary')}</p>
         <h2>${greeting}</h2>
+        <p class="daily-summary__date">${i18n.t('common.today')}, ${escapeHtml(i18n.formatLongDate(todayDate()))}</p>
         <p>${i18n.t('dashboard.todayConsumed')} <strong>${calories.currentLabel}</strong> (${calories.percent}%).</p>
       </div>
       <div class="daily-summary__stats">

@@ -114,6 +114,10 @@ export const routes = [
     section: 'Support',
     sectionKey: 'section.support',
     moduleKey: 'backup-restore',
+    // Hidden from navigation: the same export/import functionality already lives inline in
+    // the Settings "Backup" accordion section (see PART 6, WP 3.7) — never duplicate the
+    // same functionality in two screens. Route kept (not deleted) for backwards compatibility.
+    hidden: true,
     render: renderBackupRestoreScreen,
   },
 ];
